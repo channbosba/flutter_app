@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lucide_icons/lucide_icons.dart';
- // optional, or use Icons
+import 'ProductDetail.dart';
+import 'categories_screen.dart'; // <-- make sure the import is correct
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -18,11 +18,21 @@ class HomeScreen extends StatelessWidget {
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: const [
-            Icon(Icons.home, size: 28),
-            Icon(Icons.grid_view_rounded, size: 28),
-            Icon(Icons.shopping_cart_outlined, size: 28),
-            Icon(Icons.person_outline, size: 28),
+          children: [
+            const Icon(Icons.home, size: 28),
+            IconButton(
+              icon: const Icon(Icons.grid_view_rounded, size: 28),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const CategoriesScreen(),
+                  ),
+                );
+              },
+            ),
+            const Icon(Icons.shopping_cart_outlined, size: 28),
+            const Icon(Icons.person_outline, size: 28),
           ],
         ),
       ),
@@ -102,57 +112,66 @@ class HomeScreen extends StatelessWidget {
                     mainAxisSpacing: 12,
                   ),
                   itemBuilder: (context, index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 5,
-                            offset: Offset(2, 2),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(16),
-                                topRight: Radius.circular(16)),
-                            child: Image.asset(
-                              'assets/shirt.jpg',
-                              height: 140,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ProductDetailPage()),
+                        );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.black12,
+                              blurRadius: 5,
+                              offset: Offset(2, 2),
                             ),
-                          ),
-                          const Padding(
-                            padding:
-                                EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Shirt',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold)),
-                                Text('kfsjuidhgowuedkfoj',
-                                    overflow: TextOverflow.ellipsis),
-                                SizedBox(height: 6),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text('\$25',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w500)),
-                                    Icon(Icons.add_circle_outline),
-                                  ],
-                                ),
-                              ],
+                          ],
+                        ),
+                        child: Column(
+                          children: [
+                            ClipRRect(
+                              borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(16),
+                                  topRight: Radius.circular(16)),
+                              child: Image.asset(
+                                'assets/shirt.jpg',
+                                height: 140,
+                                width: double.infinity,
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                          ),
-                        ],
+                            const Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 6),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Shirt',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                  Text('Comfortable & stylish',
+                                      overflow: TextOverflow.ellipsis),
+                                  SizedBox(height: 6),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text('\$25',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w500)),
+                                      Icon(Icons.add_circle_outline),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },
